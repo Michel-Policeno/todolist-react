@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthProvider";
+import logo from "../assets/react.svg";
+import "../styles/LoginPage.css"
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -13,9 +15,7 @@ const LoginPage: React.FC = () => {
     e.preventDefault();
     setError(null);
     try {
-     
       await auth.login(email, password);
-      console.log('deu certo')
       navigate("/tasks"); 
     } catch (err: any) {
       setError(err?.response?.data?.message || "Erro no login");
@@ -23,21 +23,62 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="container mt-5 w-50">
-      <h2>Login</h2>
-      <form onSubmit={submit}>
-        <div className="mb-2">
-          <label className="form-label">Email</label>
-          <input value={email} onChange={(e) => setEmail(e.target.value)} className="form-control" />
-        </div>
-        <div className="mb-2">
-          <label className="form-label">Senha</label>
-          <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" className="form-control" />
-        </div>
-        {error && <div className="alert alert-danger">{error}</div>}
-        <button className="btn btn-primary w-100" type="submit">Entrar</button>
-      </form>
-    </div>
+        <>
+            <div className="gradient-bg"></div>
+
+            <div className="login-wrapper">
+                <div className="loginContainer">
+                    <div className="loginBox">
+                        <img
+                            src={logo}
+                            alt="Logo"
+                            className="logoImg"
+                        />
+
+                        <h2 className="titlePortal">Lista de Tarefas</h2>
+                        <p className="pPortal">Insira seus dados para acessar a plataforma</p>
+
+                        <form onSubmit={submit}>
+                            <div className="inputGroup">
+                                <label htmlFor="email">E-mail:</label>
+                                <input
+                                    type="email"
+                                    id="email"
+                                    placeholder="Digite seu e-mail"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                />
+                            </div>
+
+                            <div className="inputGroup senhaGroup">
+                                <label htmlFor="senha">Senha:</label>
+                                <input
+                                    type="password"
+                                    id="senha"
+                                    placeholder="Digite seu senha"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
+                                />
+                              </div>
+
+
+                            {error && (
+                                <p className="error-message">
+                                    {error}
+                                </p>
+                            )}
+
+                            <button type="submit" className="btnLogin">
+    Entrar
+  </button>
+
+                           </form>
+                    </div>
+                </div>
+            </div>
+        </>
   );
 };
 

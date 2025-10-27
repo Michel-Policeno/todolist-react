@@ -1,0 +1,101 @@
+/* Fundo com gradiente suave */
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: "Inter", Arial, sans-serif;
+  background: linear-gradient(135deg, #2b5876, #4e4376);
+}
+
+/* Centraliza o conteúdo */
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Container branco flutuante */
+.loginContainer {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  padding: 48px 56px;
+  width: 450px;
+  text-align: center;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Logo */
+.logoImg {
+  width: 72px;
+  margin-bottom: 20px;
+  animation: float 3s ease-in-out infinite;
+}
+
+
+/* Títulos */
+.titlePortal {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+.pPortal {
+  color: #777;
+  margin-bottom: 28px;
+  font-size: 0.95rem;
+}
+
+/* Inputs */
+.inputGroup {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.inputGroup label {
+  display: block;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 6px;
+}
+
+.inputGroup input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.inputGroup input:focus {
+  border-color: #4e4376;
+  box-shadow: 0 0 0 3px rgba(78, 67, 118, 0.2);
+}
+
+/* Botão */
+.btnLogin {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: #4e4376;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.btnLogin:hover {
+  background: #2b5876;
+}
+
+/* Erro */
+.error-message {
+  color: #e63946;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
