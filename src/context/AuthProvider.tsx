@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { createContext, useState, useContext } from "react";
-import { api } from "../api/api";
+import { api } from "../services/api";
 
 type AuthContextType = {
   token: string | null;

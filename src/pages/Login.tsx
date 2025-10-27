@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../auth/AuthProvider";
+import { useAuth } from "../context/AuthProvider";
 import logo from "../assets/react.svg";
 import "../styles/LoginPage.css"
 

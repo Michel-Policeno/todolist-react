@@ -1,0 +1,37 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 32px;
+  background: var(--bg-header, #222);
+  color: #fff;
+}
+
+.header .logo {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.header .search-bar input {
+  text-align: left; 
+  padding: 6px 130px 6px 10px;
+  border-radius: 6px; 
+  border: 1px solid #ccc;
+}
+
+.user-controls {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+
+.btn-theme,
+.btn-logout {
+  background: transparent;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+

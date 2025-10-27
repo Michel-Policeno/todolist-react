@@ -1,7 +1,8 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { AuthProvider, useAuth } from "./auth/AuthProvider";
-import LoginPage from "./pages/login";
+import { AuthProvider, useAuth } from "./context/AuthProvider";
+import LoginPage from "./pages/Login";
+import TaskPage from "./pages/Task";
 
 const PrivateRoute: React.FC<{ children: React.ReactElement }> = ({ children }) => {
   const auth = useAuth();
@@ -18,7 +19,7 @@ return (
             path="/tasks"
             element={
               <PrivateRoute>
-                <div>Tasks page (implement later)</div>
+                {<TaskPage />}
               </PrivateRoute>
             }
           />
