@@ -18,7 +18,7 @@ const LoginPage: React.FC = () => {
       await auth.login(email, password);
       navigate("/tasks"); 
     } catch (err: any) {
-      setError(err?.response?.data?.message || "Erro no login");
+      setError(err?.message || "Credências inválidas");
     }
   };
 
