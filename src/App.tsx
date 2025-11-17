@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, redirect } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthProvider";
 import LoginPage from "./pages/Login";
 import TaskPage from "./pages/Task";
@@ -23,6 +23,7 @@ return (
               </PrivateRoute>
             }
           />
+          <Route path="/*" element={<LoginPage />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
