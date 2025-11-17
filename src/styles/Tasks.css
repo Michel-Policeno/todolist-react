@@ -1,0 +1,62 @@
+.tasks-container {
+  min-height: 5rem ;
+  padding: 3rem 20rem 0 20rem;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.new-task-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+
+.new-task-bar input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.new-task-bar button {
+  background-color: var(--bg-color);
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.task-list {
+  list-style: none;
+  padding: 0;
+  
+}
+
+.task-list li {
+  display: flex;
+  justify-content:left;
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 9px;
+  transition: 0.2s;
+}
+
+.task-list li input {
+   margin-right: 5px;
+
+}
+
+.task-list li.completed span {
+    
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.task-actions button {
+  align-content:space-evenly;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
