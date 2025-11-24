@@ -7,7 +7,10 @@ import TaskPage from "./pages/Task";
 
 const PrivateRoute: React.FC<{ children: React.ReactElement }> = ({ children }) => {
   const auth = useAuth();
-  return auth.isAuthenticated ? children : <Navigate to="/" />;
+   if (!auth.isAuthenticated) {
+    return <Navigate to="/login" replace/>;
+  }
+  return children;
 };
 
 function App() {
@@ -15,7 +18,9 @@ return (
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<LoginPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          
+          {/* Rotas privadas */}
           <Route
             path="/home"
             element={
@@ -32,7 +37,8 @@ return (
               </PrivateRoute>
             }
           />
-          <Route path="/*" element={<LoginPage />} />
+          {/* Redireciona qualquer rota inválida pro login */}
+          <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

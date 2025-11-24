@@ -21,12 +21,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         localStorage.setItem("accessToken", receivedToken);
         setToken(receivedToken);
     
-    } catch (error) {
-        console.error("Login failed:", error);
-        localStorage.removeItem('accessToken'); 
-        throw new Error("Falha ao autenticar");
+    } catch (error: any) {
+        localStorage.removeItem('accessToken');  
+        if (error.status === 404) throw new Error("Credencias inválidas");
+        throw new Error("Falha do servidor em autenticar, tente novamente");
     }
-
   };
 
   const logout = () => {

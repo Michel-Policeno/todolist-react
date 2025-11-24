@@ -39,19 +39,17 @@ const TasksPage: React.FC = () => {
     }
   };
 
-  // 🔹 Marcar como concluída
-  const handleToggleComplete = async (task: Task) => {
+  // Marcar como concluída
+  const handleToggleCheck = async (id: string) => {
     try {
-      const updated = await taskService.update(task.id!, { ...task, realizado: !task.realizado });
-      setTasks((prev) =>
-        prev.map((t) => (t.id === task.id ? updated : t))
-      );
+      const taskToggle = await taskService.toggle(id)
+      setTasks((prev) => prev.map(t => t.id === id ? taskToggle : t));
     } catch {
       alert("Erro ao atualizar tarefa");
     }
   };
 
-  // 🔹 Excluir tarefa
+  // Excluir tarefa
   const handleDelete = async (id: string) => {
     if (!confirm("Deseja excluir esta tarefa?")) return;
     try {
@@ -61,7 +59,6 @@ const TasksPage: React.FC = () => {
       alert("Erro ao excluir tarefa");
     }
   };
-
 
 
   return (
@@ -91,7 +88,7 @@ const TasksPage: React.FC = () => {
                 <input
                   type="checkbox"
                   checked={task.realizado || false}
-                  onChange={() => handleToggleComplete(task)}
+                  onChange={() => handleToggleCheck(task.id!)}
                 />
                 <span>{task.nome}</span>
                 <div className="task-actions">
