@@ -16,7 +16,7 @@ const LoginPage: React.FC = () => {
     setError(null);
     try {
       await auth.login(email, password);
-      navigate("/tasks");
+      navigate("/home");
     } catch (err: any) {
       setError(err?.message || "Credências inválidas");
     }

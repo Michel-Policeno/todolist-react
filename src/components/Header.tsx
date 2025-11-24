@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate} from "react-router-dom";
 import { useAuth } from "../context/AuthProvider";
 import "../styles/Header.css";
 
@@ -7,6 +8,7 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ onSearch }) => {
+  const navigate = useNavigate();
   const { logout } = useAuth();
   const [search, setSearch] = useState("");
   const [theme, setTheme] = useState("light");
@@ -19,7 +21,18 @@ const Header: React.FC<HeaderProps> = ({ onSearch }) => {
 
   return (
     <header className="header">
-      <div className="logo">App de Tarefas</div>
+      <button onClick={() => navigate("/home")} className="btn-home">
+          Home
+        </button>
+
+          <button onClick={() => navigate("/tasks")} className="btn-tarefas">
+          Tarefas
+        </button>
+
+         <button onClick={() => navigate("/foods")} className="btn-receitas">
+          Receitas
+        </button>
+ 
 
       <div className="search-bar">
         <input

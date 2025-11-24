@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route, Navigate, redirect } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthProvider";
 import LoginPage from "./pages/Login";
+import Home from "./pages/home";
 import TaskPage from "./pages/Task";
 
 const PrivateRoute: React.FC<{ children: React.ReactElement }> = ({ children }) => {
@@ -20,6 +21,14 @@ return (
           <Route path="/login" element={<LoginPage />} />
           
           {/* Rotas privadas */}
+          <Route
+            path="/home"
+            element={
+              <PrivateRoute>
+                {<Home/>}
+              </PrivateRoute>
+            }
+          />
           <Route
             path="/tasks"
             element={
