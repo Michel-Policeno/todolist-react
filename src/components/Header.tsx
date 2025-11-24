@@ -34,7 +34,8 @@ const Header: React.FC<HeaderProps> = ({ onSearch }) => {
       </div>
 
       <div className="user-controls">
-        <span className="username">Olá, Michel</span>
+      
+        {/* <span className="username">Olá, Michel</span> */}
         {/* <button onClick={handleThemeToggle} className="btn-theme">
           {theme === "light" ? "🌙" : "☀️"}
         </button> */}

@@ -52,8 +52,8 @@ export const taskService = {
 
   async toggle(id: string): Promise<Task> {
     try {
-      const { data } = await api.put(`/tasks/${id}/toggle`);
-      return data;
+     const { data } = await api.patch(`/tasks/${id}/toggle`);
+     return data 
     } catch (error: any) {
       console.error("Erro ao alternar realizado/feito da tarefa:", error);
       throw new Error("Falha ao alternar realizado/feito da tarefa.");
