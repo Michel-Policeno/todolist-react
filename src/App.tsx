@@ -2,8 +2,9 @@ import React from "react";
 import { BrowserRouter, Routes, Route, Navigate, redirect } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthProvider";
 import LoginPage from "./pages/Login";
-import Home from "./pages/home";
+import Home from "./pages/Home";
 import TaskPage from "./pages/Task";
+import FoodPage from "./pages/Food";
 
 const PrivateRoute: React.FC<{ children: React.ReactElement }> = ({ children }) => {
   const auth = useAuth();
@@ -34,6 +35,14 @@ return (
             element={
               <PrivateRoute>
                 {<TaskPage />}
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/foods"
+            element={
+              <PrivateRoute>
+                {<FoodPage />}
               </PrivateRoute>
             }
           />
