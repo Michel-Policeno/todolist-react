@@ -34,7 +34,8 @@
 .btn-theme,
 .btn-home,
 .btn-tarefas,
-.btn-receitas{
+.btn-receitas,
+.btn-filmes{
   background: transparent;
   color: white;
   border: none;
