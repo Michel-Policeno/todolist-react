@@ -37,7 +37,7 @@ const FoodPage: React.FC = () => {
       <h1 className="food-title">Livro de Receitas</h1>
       <div className="foods-grid">
         {loading ? (
-          <p>Carregando tarefas...</p>
+          <p>Carregando receitas...</p>
         ) : error ? (
           <p className="error">{error}</p>
         ) : (
