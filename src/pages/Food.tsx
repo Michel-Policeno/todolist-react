@@ -9,7 +9,6 @@ const FoodPage: React.FC = () => {
   const [foods, setFoods] = useState<Receita[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const loadFood = async () => {
@@ -26,13 +25,11 @@ const FoodPage: React.FC = () => {
     loadFood();
   }, []);
 
-  const filteredFoods = foods.filter((f) =>
-    f.receita.toLowerCase().includes(search.toLowerCase())
-  );
+
 
   return (
     <>
-      <Header onSearch={setSearch} />
+      <Header/>
 
       <h1 className="food-title">Livro de Receitas</h1>
       <div className="foods-grid">
@@ -41,7 +38,7 @@ const FoodPage: React.FC = () => {
         ) : error ? (
           <p className="error">{error}</p>
         ) : (
-        filteredFoods.map((item) => (
+        foods.map((item) => (
           <div className="food-card" key={item.id}>
             <img
               src={item.link_imagem}

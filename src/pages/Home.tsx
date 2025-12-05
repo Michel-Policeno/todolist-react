@@ -6,11 +6,11 @@ import "../styles/Home.css";
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
-   const [searchQuery, setSearchQuery] = useState("");
+  
 
   return (
     <>
-      <Header onSearch={setSearchQuery} />
+      <Header/>
 
       <main className="home-container">
         <div className="home-card" onClick={() => navigate("/tasks")}>
