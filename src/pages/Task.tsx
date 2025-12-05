@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import DeleteConfirmationModal from "../components/DeleteConfirmationModal"
 import { taskService, type Task } from "../services/taskService";
 import "../styles/Tasks.css"
 
@@ -9,7 +10,8 @@ const TasksPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [newTask, setNewTask] = useState("");
-  const [searchQuery, setSearchQuery] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [taskToDelete, setTaskToDelete] = useState<Task | null>(null);
 
   // Buscar as tarefas 
   useEffect(() => {
@@ -49,21 +51,33 @@ const TasksPage: React.FC = () => {
     }
   };
 
-  // Excluir tarefa
-  const handleDelete = async (id: string) => {
-    if (!confirm("Deseja excluir esta tarefa?")) return;
+// 🛑 SUBSTITUIR A FUNÇÃO handleDelete EXISTENTE
+ const handleDelete = (task: Task) => { // Aceita a tarefa completa (ou ID e Nome)
+  setTaskToDelete(task);
+  setIsModalOpen(true);
+ };
+
+// ⬅️ NOVA FUNÇÃO PARA EXECUTAR A EXCLUSÃO
+  const handleConfirmDelete = async () => {
+    if (!taskToDelete) return;
+
     try {
-      await taskService.delete(id);
-      setTasks((prev) => prev.filter((t) => t.id !== id));
+      await taskService.delete(taskToDelete.id!);
+      setTasks((prev) => prev.filter((t) => t.id !== taskToDelete.id));
+      
     } catch {
       alert("Erro ao excluir tarefa");
+      
+    } finally {
+      // Sempre fecha e reseta o estado após a tentativa
+      setIsModalOpen(false);
+      setTaskToDelete(null);
     }
   };
 
-
   return (
     <>
-      <Header onSearch={setSearchQuery} />
+      <Header/>
 
       <main className="tasks-container">
         <div className="new-task-bar">
@@ -85,17 +99,20 @@ const TasksPage: React.FC = () => {
             {tasks.length === 0 && <p>Nenhuma tarefa encontrada.</p>}
             {tasks.map((task) => (
               <li key={task.nome} className={task.realizado ? "completed" : ""}>
+               <div className="task-info">
                 <input
                   type="checkbox"
                   checked={task.realizado || false}
                   onChange={() => handleToggleCheck(task.id!)}
                 />
                 <span>{task.nome}</span>
+                </div>
+
                 <div className="task-actions">
                   <button className="edit-btn">✏️</button>
                   <button
                     className="delete-btn"
-                    onClick={() => handleDelete(task.id!)}
+                    onClick={() => handleDelete(task)}
                   >
                     🗑️
                   </button>
@@ -107,6 +124,17 @@ const TasksPage: React.FC = () => {
       </main>
 
       <Footer />
+
+      {/* ⬅️ RENDERIZAR O MODAL AQUI */}
+      <DeleteConfirmationModal
+          isOpen={isModalOpen}
+          // Passa o nome para o modal ter contexto (usa "" se for null)
+          onConfirm={handleConfirmDelete}
+          onCancel={() => {
+              setIsModalOpen(false);
+              setTaskToDelete(null); // Limpa o estado se cancelar
+          }}
+      />
     </>
   );
 };
