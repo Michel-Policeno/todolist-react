@@ -1,5 +1,5 @@
 .tasks-container {
-  min-height: 5rem ;
+  min-height: 5rem;
   padding: 3rem 20rem 0 20rem;
   background-color: var(--bg-color);
   color: var(--text-color);
@@ -30,33 +30,46 @@
 .task-list {
   list-style: none;
   padding: 0;
-  
 }
 
 .task-list li {
   display: flex;
-  justify-content:left;
+  justify-content: space-between;
+  align-items: center;
   background: #f8f9fa;
   border-radius: 8px;
-  padding: 10px;
+  padding: 12px;
   margin-bottom: 9px;
   transition: 0.2s;
 }
 
-.task-list li input {
-   margin-right: 5px;
+/* 1. Ajuste do gap para definir o espaçamento */
+.task-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 
+/* 2. CORREÇÃO DEFINITIVA: Força a remoção de todas as margens do checkbox */
+.task-info input[type="checkbox"] {
+  margin: 0 !important;
+  display: block;
 }
 
 .task-list li.completed span {
-    
+
   text-decoration: line-through;
   opacity: 0.6;
 }
 
+.task-actions {
+  display: flex;
+  gap: 12px;
+}
+
 .task-actions button {
-  align-content:space-evenly;
   cursor: pointer;
   background: none;
   border: none;
+  font-size: 17px;
 }
