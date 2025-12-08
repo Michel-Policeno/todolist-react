@@ -5,6 +5,7 @@ import DeleteConfirmationModal from "../components/modalsTask/DeleteConfirmation
 import TaskDetailModal from "../components/modalsTask/TaskDetailModal";
 import TaskEditModal from "../components/modalsTask/TaskEditModal";
 import { taskService, type Task } from "../services/taskService";
+import { toast } from 'react-toastify'
 import "../styles/Tasks.css"
 
 const TasksPage: React.FC = () => {
@@ -41,7 +42,7 @@ const TasksPage: React.FC = () => {
       setTaskToEdit(null);
 
     } catch (err) {
-      alert("Erro ao salvar edição da tarefa");
+      toast.error("Erro ao salvar edição da tarefa");
     }
   };
 
@@ -69,7 +70,7 @@ const TasksPage: React.FC = () => {
       setTasks((prev) => [...prev, created]);
       setNewTask("");
     } catch (err) {
-      alert("Erro ao criar tarefa");
+      toast.error("Erro ao criar tarefa");
     }
   };
 
@@ -79,7 +80,7 @@ const TasksPage: React.FC = () => {
       const taskToggle = await taskService.toggle(id)
       setTasks((prev) => prev.map(t => t.id === id ? taskToggle : t));
     } catch {
-      alert("Erro ao atualizar tarefa");
+      toast.error("Erro ao atualizar tarefa");
     }
   };
 
@@ -98,7 +99,7 @@ const TasksPage: React.FC = () => {
       setTasks((prev) => prev.filter((t) => t.id !== taskToDelete.id));
 
     } catch {
-      alert("Erro ao excluir tarefa");
+      toast.error("Erro ao excluir tarefa");
 
     } finally {
       setIsModalOpen(false);
@@ -147,14 +148,12 @@ const TasksPage: React.FC = () => {
                       checked={task.realizado || false}
                       onChange={() => handleToggleCheck(task.id!)}
                     />
-                    {/* ⬅️ CLICAR NO NOME PARA VER DETALHES */}
-                    <span onClick={() => handleViewDetails(task)} style={{ cursor: 'pointer' }}>
+                   <span onClick={() => handleViewDetails(task)} style={{ cursor: 'pointer' }}>
                       {task.nome}
                     </span>
                   </div>
 
                   <div className="task-actions">
-                    {/* ⬅️ CLICAR NO LÁPIS PARA ABRIR EDIÇÃO */}
                     <button className="open-btn" onClick={() => handleViewDetails(task)}>👁️</button>
                     <button className="edit-btn" onClick={() => handleOpenEdit(task)}>✏️</button>
                     <button

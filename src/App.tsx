@@ -1,6 +1,8 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate, redirect } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthProvider";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import LoginPage from "./pages/Login";
 import Home from "./pages/Home";
 import TaskPage from "./pages/Task";
@@ -17,8 +19,9 @@ const PrivateRoute: React.FC<{ children: React.ReactElement }> = ({ children }) 
 function App() {
 return (
     <AuthProvider>
+        <ToastContainer position="top-right" autoClose={3000} />
       <BrowserRouter>
-        <Routes>
+              <Routes>
           <Route path="/login" element={<LoginPage />} />
           
           {/* Rotas privadas */}
@@ -42,6 +45,7 @@ return (
             path="/foods"
             element={
               <PrivateRoute>
+              
                 {<FoodPage />}
               </PrivateRoute>
             }
