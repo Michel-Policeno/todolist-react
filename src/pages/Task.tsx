@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import DeleteConfirmationModal from "../components/DeleteConfirmationModal"
+import DeleteConfirmationModal from "../components/modalsTask/DeleteConfirmationModal"
+import TaskDetailModal from "../components/modalsTask/TaskDetailModal";
+import TaskEditModal from "../components/modalsTask/TaskEditModal";
 import { taskService, type Task } from "../services/taskService";
 import "../styles/Tasks.css"
 
@@ -12,6 +14,36 @@ const TasksPage: React.FC = () => {
   const [newTask, setNewTask] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState<Task | null>(null);
+  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [taskToEdit, setTaskToEdit] = useState<Task | null>(null);
+  const [taskToDetail, setTaskToDetail] = useState<Task | null>(null);
+
+  const handleViewDetails = (task: Task) => {
+    setTaskToDetail(task);
+    setIsDetailModalOpen(true);
+  };
+
+  const handleOpenEdit = (task: Task) => {
+    setTaskToEdit(task);
+    setIsEditModalOpen(true);
+  };
+
+  const handleSaveEdit = async (updatedTask: Task) => {
+    try {
+      const savedTask = await taskService.update(updatedTask.id!, updatedTask);
+
+      setTasks((prev) =>
+        prev.map(t => (t.id === savedTask.id) ? savedTask : t)
+      );
+
+      setIsEditModalOpen(false);
+      setTaskToEdit(null);
+
+    } catch (err) {
+      alert("Erro ao salvar edição da tarefa");
+    }
+  };
 
   // Buscar as tarefas 
   useEffect(() => {
@@ -51,25 +83,24 @@ const TasksPage: React.FC = () => {
     }
   };
 
-// 🛑 SUBSTITUIR A FUNÇÃO handleDelete EXISTENTE
- const handleDelete = (task: Task) => { // Aceita a tarefa completa (ou ID e Nome)
-  setTaskToDelete(task);
-  setIsModalOpen(true);
- };
+  // abri modal de delete 
+  const handleDelete = (task: Task) => {
+    setTaskToDelete(task);
+    setIsModalOpen(true);
+  };
 
-// ⬅️ NOVA FUNÇÃO PARA EXECUTAR A EXCLUSÃO
+  // função para delete
   const handleConfirmDelete = async () => {
     if (!taskToDelete) return;
 
     try {
       await taskService.delete(taskToDelete.id!);
       setTasks((prev) => prev.filter((t) => t.id !== taskToDelete.id));
-      
+
     } catch {
       alert("Erro ao excluir tarefa");
-      
+
     } finally {
-      // Sempre fecha e reseta o estado após a tentativa
       setIsModalOpen(false);
       setTaskToDelete(null);
     }
@@ -77,7 +108,7 @@ const TasksPage: React.FC = () => {
 
   return (
     <>
-      <Header/>
+      <Header />
 
       <main className="tasks-container">
         <div className="new-task-bar">
@@ -97,43 +128,72 @@ const TasksPage: React.FC = () => {
         ) : (
           <ul className="task-list">
             {tasks.length === 0 && <p>Nenhuma tarefa encontrada.</p>}
-            {tasks.map((task) => (
-              <li key={task.nome} className={task.realizado ? "completed" : ""}>
-               <div className="task-info">
-                <input
-                  type="checkbox"
-                  checked={task.realizado || false}
-                  onChange={() => handleToggleCheck(task.id!)}
-                />
-                <span>{task.nome}</span>
-                </div>
+            {tasks
+              .slice()
+              .sort((a, b) => {
+                const prioridadeA = a.prioridade || 0;
+                const prioridadeB = b.prioridade || 0;
 
-                <div className="task-actions">
-                  <button className="edit-btn">✏️</button>
-                  <button
-                    className="delete-btn"
-                    onClick={() => handleDelete(task)}
-                  >
-                    🗑️
-                  </button>
-                </div>
-              </li>
-            ))}
+                if (prioridadeA !== prioridadeB) {
+                  return prioridadeB - prioridadeA; 
+                }
+                return 0;
+              })
+              .map((task) => (
+                <li key={task.nome} className={task.realizado ? "completed" : ""}>
+                  <div className="task-info">
+                    <input
+                      type="checkbox"
+                      checked={task.realizado || false}
+                      onChange={() => handleToggleCheck(task.id!)}
+                    />
+                    {/* ⬅️ CLICAR NO NOME PARA VER DETALHES */}
+                    <span onClick={() => handleViewDetails(task)} style={{ cursor: 'pointer' }}>
+                      {task.nome}
+                    </span>
+                  </div>
+
+                  <div className="task-actions">
+                    {/* ⬅️ CLICAR NO LÁPIS PARA ABRIR EDIÇÃO */}
+                    <button className="open-btn" onClick={() => handleViewDetails(task)}>👁️</button>
+                    <button className="edit-btn" onClick={() => handleOpenEdit(task)}>✏️</button>
+                    <button
+                      className="delete-btn"
+                      onClick={() => handleDelete(task)}
+                    >
+                      ❌
+                    </button>
+                  </div>
+                </li>
+              ))}
           </ul>
         )}
       </main>
 
       <Footer />
 
-      {/* ⬅️ RENDERIZAR O MODAL AQUI */}
+      {/* modal delete */}
       <DeleteConfirmationModal
-          isOpen={isModalOpen}
-          // Passa o nome para o modal ter contexto (usa "" se for null)
-          onConfirm={handleConfirmDelete}
-          onCancel={() => {
-              setIsModalOpen(false);
-              setTaskToDelete(null); // Limpa o estado se cancelar
-          }}
+        isOpen={isModalOpen}
+        onConfirm={handleConfirmDelete}
+        onCancel={() => {
+          setIsModalOpen(false);
+          setTaskToDelete(null);
+        }}
+      />
+      {/* modal detalhes */}
+      <TaskDetailModal
+        isOpen={isDetailModalOpen}
+        task={taskToDetail}
+        onClose={() => setIsDetailModalOpen(false)}
+      />
+
+      {/* modal edição */}
+      <TaskEditModal
+        isOpen={isEditModalOpen}
+        task={taskToEdit}
+        onClose={() => setIsEditModalOpen(false)}
+        onSave={handleSaveEdit}
       />
     </>
   );

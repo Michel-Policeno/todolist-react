@@ -4,7 +4,7 @@ export interface Task {
   id?: string;
   nome: string;
   descricao?: string;
-  prioridade?:Number;
+  prioridade?:number;
   realizado?: boolean;
 }
 

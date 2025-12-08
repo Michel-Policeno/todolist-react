@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/DeleteConfirmationModal.css';
+import '../../styles/ModalsTask.css';
 
 interface DeleteConfirmationModalProps {
     isOpen: boolean;
