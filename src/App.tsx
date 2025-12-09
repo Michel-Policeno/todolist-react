@@ -7,6 +7,7 @@ import LoginPage from "./pages/Login";
 import Home from "./pages/Home";
 import TaskPage from "./pages/Task";
 import FoodPage from "./pages/Food";
+import MoviePage from "./pages/Movies";
 
 const PrivateRoute: React.FC<{ children: React.ReactElement }> = ({ children }) => {
   const auth = useAuth();
@@ -47,6 +48,14 @@ return (
               <PrivateRoute>
               
                 {<FoodPage />}
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/movies"
+            element={
+              <PrivateRoute>
+                {<MoviePage/>}
               </PrivateRoute>
             }
           />
