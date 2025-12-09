@@ -1,6 +1,6 @@
 import React from 'react';
-import type { Task } from '../../services/taskService';
 import '../../styles/ModalsTask.css';
+import type { Task } from '../../services/taskService';
 import Linkify from 'react-linkify'
 
 interface TaskDetailModalProps {
