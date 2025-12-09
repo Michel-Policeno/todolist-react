@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 import DeleteConfirmationModal from "../components/modalsTask/DeleteConfirmationModal"
 import TaskDetailModal from "../components/modalsTask/TaskDetailModal";
 import TaskEditModal from "../components/modalsTask/TaskEditModal";
-import { taskService, type Task } from "../services/taskService";
+import { taskService, type Task } from "../services/TaskService";
 import { toast } from 'react-toastify'
 import "../styles/Tasks.css"
 
