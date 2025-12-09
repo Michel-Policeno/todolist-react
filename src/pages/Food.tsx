@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import RecipeDetailModal from "../components/modalFood/RecipeDetailModal"
 import { foodService, type Receita } from "../services/foodService";
-import { taskService, type Task } from "../services/taskService";
+import { taskService} from "../services/taskService";
 import { toast } from 'react-toastify'
 import "../styles/Food.css";
 

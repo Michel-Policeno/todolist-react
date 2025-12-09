@@ -35,6 +35,13 @@
     padding-left: 10px; 
 }
 
+.modal-description-text a {
+    color: #007bff; /* Garante que o link seja azul e visível */
+    text-decoration: underline;
+    font-weight: bold;
+    /* Adicione quaisquer outros estilos de link aqui */
+}
+
 .modal-content strong {
     display: inline-block;
     margin-right: 5px;

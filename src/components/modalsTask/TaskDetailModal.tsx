@@ -28,7 +28,7 @@ const TaskDetailModal: React.FC<TaskDetailModalProps> = ({ isOpen, task, onClose
                 <div>
                     <strong>Descrição:</strong>
                     <div className="modal-description-text">
-                        <Linkify properties={{ target: '_blank', style: { color: '#007bff', fontWeight: 'bold' } }}>
+                        <Linkify>
                             {task.descricao || 'Sem descrição'}
                         </Linkify>
                     </div>
