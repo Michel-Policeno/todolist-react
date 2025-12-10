@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { movieService, type Movie } from "../services/MovieService";
-import { taskService} from "../services/TaskService";
+import { taskService} from "../services/TaskService"
 import { toast } from 'react-toastify'
 import "../styles/Movies.css";
 
